@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p = "http://www.springframework.org/schema/p"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xmlns:aop = "http://www.springframework.org/schema/aop"
+       xmlns:tx = "http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                            http://www.springframework.org/schema/aop
+                            http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+
+    <!--扫描类包 将标注spring注解的类自动转化成bean 同时完成bean的注入-->
+    <context:component-scan base-package="com.guessfinger.dao"/>
+    <!--扫描service类包-->
+    <context:component-scan base-package="com.guessfinger.service"/>
+
+
+    <!--定义一个jdbc的数据源-->
+    <!--如果我们引用DBCP org.apache.commons.dbcp2.BasicDataSource-->
+    <!--样提供了一个用于关闭数据源的close()方法，这样我们就可以保证Spring容器关闭时数据源能够成功释放
+        也就是destroy-method这个方法-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:ORCL"/>
+        <property name="user" value="GuessFinger"/>
+        <property name="password" value="GuessFinger"/>
+    </bean>
+
+    <!--配置事务管理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+        p:dataSource-ref="dataSource"/>
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="serviceMethod" expression="(execution(* com.guessfinger.service..*(..)))
+            and (@annotation(org.springframework.transaction.annotation.Transactional))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
+    </aop:config>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--定义jdbc的bean-->
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource"/>
+</beans>

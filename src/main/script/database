@@ -1,0 +1,42 @@
+create table t_user(
+      user_id int primary key,
+      user_name varchar(30),
+      credits int,
+      password varchar(32),
+      last_visit date,
+      last_ip varchar(23)
+);
+create sequence user_sequences start with 1 increment by 1;
+--字段名称 类型 是否为主键 还有需要创建 主键的自增长
+--使用的是上面的语句
+
+create table t_login_log(
+       login_log_id int primary key,
+       user_id int,
+       ip varchar(23),
+       login_date_time date
+);
+--create sequence user_sequences start with 1 increment by 1;
+
+
+comment on table t_user is '用户信息表';
+comment on column t_user.user_id is '用户ID';
+comment on column t_user.user_name is '登录名称';
+comment on column t_user.credits is '用户积分';
+comment on column t_user.password is '登录密码';
+comment on column t_user.last_visit is '最后一次登录时间';
+comment on column t_user.last_ip is '最后一次登录ip';
+
+comment on table t_login_log is '用户登录日志表';
+comment on column t_login_log.login_log_id is '登录日志ID';
+comment on column t_login_log.user_id is '用户ID';
+comment on column t_login_log.ip is '登录ip地址';
+comment on column t_login_log.login_date_time is '登录时间';
+
+
+--insert into t_user(user_id) values(user_sequences.nextval);
+
+--在设计表的时候 需要判断有些字段能不能为空
+--我记得就是 我创建一个自增长的sequence以后 我再插入的时候 直接使用user_sequence.nextval 就好了
+
+--今天把两个表创建好了 然后也添加了注释

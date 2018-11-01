@@ -1,0 +1,35 @@
+.headDiv{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+.mainDiv{
+    width: 100%;
+    height: 200px;
+}
+.loginDiv{
+    background: gainsboro;
+    width: 20%;
+    height: 70%;
+    float: left;
+    left: 40%;
+    position: relative;
+}
+.loginHeader{
+    width: 100%;
+    height: 30%;
+    text-align: center;
+}
+.loginBody{
+    width: 100%;
+    height: 70%;
+}
+
+.inputCss{
+    width: 100%;
+    height: 30%;
+    text-align: center;
+}
+.errorCss{
+    color:red;
+}
