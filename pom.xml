@@ -22,6 +22,7 @@
     <mysqldriver.version>5.1.46</mysqldriver.version>
     <c3p0.version>0.9.1.2</c3p0.version>
     <dbcp.version>2.1</dbcp.version>
+
     <servlet.version>2.5</servlet.version>
     <jstl.version>1.2</jstl.version>
     <jdbcTemplate.version>4.3.7.RELEASE</jdbcTemplate.version>
@@ -68,6 +69,11 @@
       <version>${mysqldriver.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
+    </dependency>
 
     <!--依赖的数据库连接池类-->
     <dependency>

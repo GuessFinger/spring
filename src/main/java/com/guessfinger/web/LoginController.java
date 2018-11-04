@@ -25,9 +25,15 @@ public class LoginController {
     @RequestMapping(value = "/index.html")
     public String loginPage() {
         System.out.println(2222);
-        return "/view/login.html";
+        return "1";
     }
 
+
+    @RequestMapping(value = "/login.html")
+    public String login() {
+        System.out.println(3333);
+        return "login3";
+    }
 
     /**
      * 登录是否成功检查操作，如果成功 顺便把login中的数据进行更新
