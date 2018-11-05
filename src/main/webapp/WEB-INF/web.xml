@@ -23,6 +23,8 @@
     </listener>
 
     <!--配置springmvc的servlet-->
+
+    
     <servlet>
         <servlet-name>smart</servlet-name>
         <servlet-class>
@@ -33,7 +35,7 @@
     <!--配置spring mvc处理的url-->
     <servlet-mapping>
         <servlet-name>smart</servlet-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
 </web-app>

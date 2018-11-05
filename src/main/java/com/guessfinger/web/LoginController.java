@@ -22,17 +22,10 @@ public class LoginController {
     /**
         负责处理index.html的请求
      */
-    @RequestMapping(value = "/index.html")
-    public String loginPage() {
+    @RequestMapping(value = "/login.do")
+    public ModelAndView loginPage() {
         System.out.println(2222);
-        return "1";
-    }
-
-
-    @RequestMapping(value = "/login.html")
-    public String login() {
-        System.out.println(3333);
-        return "login3";
+       return new ModelAndView("login");
     }
 
     /**
