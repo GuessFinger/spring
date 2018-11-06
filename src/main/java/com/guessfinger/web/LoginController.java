@@ -6,6 +6,7 @@ import com.guessfinger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,18 +35,20 @@ public class LoginController {
      * 在使用modelandview的时候 返回的信息中第一个代表的是 试图逻辑名 2 代表的是数据模型名称
      * 3代码的是模型对象
      */
-    @RequestMapping(value = "/check")
-    public ModelAndView loginCheck(HttpServletRequest request, LoginCommand loginCommand) {
-        boolean flag = userService.hasMatchUser(loginCommand.getLoginName(),loginCommand.getPassword());
+    @RequestMapping(value = "/check.do")
+    @ResponseBody
+    public String loginCheck(HttpServletRequest request,  String json) {
+        boolean flag = userService.hasMatchUser(request.getParameter("loginMessage"),
+                request.getParameter("loginPassword"));
         if (!flag) {
-            return new ModelAndView("/WEB-INF/login.html", "error", "用户名或密码错误!");
+            return "login.do";
         }
-        User user1 = userService.findUserByUserName(loginCommand.getLoginName());
+        User user1 = userService.findUserByUserName(request.getParameter("loginMessage"));
         user1.setLastIp(user1.getLastIp());
         user1.setLastVisit(user1.getLastVisit());
         userService.loginSuccess(user1);
         request.getSession().setAttribute("user", user1);
-        return new ModelAndView("view/success");
+        return "success.html";
     }
 
 

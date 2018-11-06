@@ -1,18 +1,18 @@
 var vm = new Vue({
     el:'#app',
     data:{
-        loginMessage:'123456',
+        loginMessage:'',
         loginPassword:'',
         errorControl:false,
     },
     methods:{
         login:function () {
-            var json = {
-                "loginMessage":vm.loginMessage,
-                "loginPassword":vm.loginPassword,
-            }
-            axios.get('check',{params:json}).then(function (value) {
-                console.log(value);
+            $.ajax({
+                type:"GET",
+                url:'check.do?loginMessage='+vm.loginMessage+'&loginPassword='+vm.loginPassword,
+                success:function (data) {
+                    console.log(data);
+                }
             });
              // console.log(vm.data.loginMessage);
              console.log();
